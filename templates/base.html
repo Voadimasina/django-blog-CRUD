@@ -11,17 +11,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="nav-left">
-            <h1><a href="{% url 'home' %}" >Django blog</a></h1>
-        </div>
-        <div class="nav-right">
-            <a href="{% url 'post_new' %}">+ New Blog Post</a>
-        </div>
-    </header>
     <div>
-        {% block content %}
-        {% endblock %}
-    </div>
+        <header>
+            <div class="nav-left">
+                <h1><a href="{% url 'home' %}" >Django blog</a></h1>
+            </div>
+            <div class="nav-right">
+                <a href="{% url 'post_new' %}">+ New Blog Post</a>
+            </div>
+        </header>
+        {% if user.is_authenticated %}
+            <p>Hi {{user.username}} </p>
+            <a href="{% url 'logout' %}">Log out</a>
+        {% else %}
+            <p>You are not loged in</p>
+            <a href="{% url 'login' %}">Log In</a>
+            <a href="{% url 'signup' %}">Sign up</a>
+        {% endif %}
+        <div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>  
 </body>
 </html>
